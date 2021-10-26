@@ -1,0 +1,15 @@
+.newComment {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 5px 10px;
+  background-color: #e1e1e1;
+  border: 1px solid rgb(133, 133, 133);
+  width: 500px;
+  padding: 20px 0px;
+  border-radius: 5px;
+}
+.newComment label {
+  margin-right: 5px;
+}
