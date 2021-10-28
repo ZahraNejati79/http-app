@@ -20,9 +20,10 @@ const DiscussComponent = () => {
     const getComment = async () => {
       try {
         const { data } = await axios.get(
-          "https://jsonplaceholder.typicode.com/users"
+          "https://jsonplaceholder.typicode.com/comments"
         );
         setComment(data.slice(0, 4));
+        console.log(data.slice(0, 4));
       } catch (error) {
         console.log(error);
       }

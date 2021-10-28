@@ -6,7 +6,7 @@ const FullComment = ({ commentId }) => {
   useEffect(() => {
     if (commentId) {
       axios
-        .get(`https://jsonplaceholder.typicode.com/users/${commentId}`)
+        .get(`https://jsonplaceholder.typicode.com/comments/${commentId}`)
         .then((res) => setSelectComment(res.data))
         .catch((error) => console.log(error));
     }
@@ -21,11 +21,7 @@ const FullComment = ({ commentId }) => {
       <div className={styles.fullComponent}>
         <p>{selectCommet.name}</p>
         <p>{selectCommet.email}</p>
-        <p>
-          {selectCommet.company.name}
-          {selectCommet.company.catchPhrase}
-          {selectCommet.company.bs}
-        </p>
+        <p>{selectCommet.body}</p>
       </div>
     );
   }
