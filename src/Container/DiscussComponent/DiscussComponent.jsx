@@ -7,15 +7,25 @@ import styles from "./DiscussComponent.module.css";
 const DiscussComponent = () => {
   const [comment, setComment] = useState(null);
   useEffect(() => {
-    axios
-      .get("https://jsonplaceholder.typicode.com/posts")
-      .then((response) => {
-        setComment(response.data.slice(0, 3));
-        console.log(response.data.slice(0, 3));
-      })
-      .catch((error) => {
+    // axios
+    //   .get("https://jsonplaceholder.typicode.com/users")
+    //   .then((response) => {
+    //     setComment(response.data.slice(0, 3));
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    const getComment = async () => {
+      try {
+        const { data } = await axios.get(
+          "https://jsonplaceholder.typicode.com/users"
+        );
+        setComment(data.slice(0, 4));
+      } catch (error) {
         console.log(error);
-      });
+      }
+    };
+    getComment();
   }, []);
 
   return (
