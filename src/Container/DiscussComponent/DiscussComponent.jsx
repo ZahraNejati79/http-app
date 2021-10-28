@@ -6,6 +6,8 @@ import NewComment from "../../Component/NewComment/NewComment";
 import styles from "./DiscussComponent.module.css";
 const DiscussComponent = () => {
   const [comment, setComment] = useState(null);
+  const [selectedCommentId, setSelectedCommentId] = useState(null);
+
   useEffect(() => {
     // axios
     //   .get("https://jsonplaceholder.typicode.com/users")
@@ -27,20 +29,29 @@ const DiscussComponent = () => {
     };
     getComment();
   }, []);
+  const selectComment = (id) => {
+    console.log(id);
+    setSelectedCommentId(id);
+  };
 
   return (
     <div className={styles.discussComponent}>
       <section>
         {comment ? (
           comment.map((c) => (
-            <CommentC key={c.id} name={c.name} email={c.email} />
+            <CommentC
+              key={c.id}
+              name={c.name}
+              email={c.email}
+              clickHandler={() => selectComment(c.id)}
+            />
           ))
         ) : (
           <p>loading ...</p>
         )}
       </section>
       <section>
-        <FullComment />
+        <FullComment commentId={selectedCommentId} />
       </section>
       <section>
         <NewComment />
