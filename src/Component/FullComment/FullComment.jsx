@@ -1,8 +1,9 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import styles from "./FullComment.module.css";
-const FullComment = ({ commentId }) => {
+const FullComment = ({ commentId, deleteHandler }) => {
   const [selectCommet, setSelectComment] = useState(null);
+
   useEffect(() => {
     if (commentId) {
       axios
@@ -22,6 +23,7 @@ const FullComment = ({ commentId }) => {
         <p>{selectCommet.name}</p>
         <p>{selectCommet.email}</p>
         <p>{selectCommet.body}</p>
+        <button onClick={() => deleteHandler(selectCommet.id)}>Delete</button>
       </div>
     );
   }

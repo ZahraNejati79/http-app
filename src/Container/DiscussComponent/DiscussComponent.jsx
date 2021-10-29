@@ -30,6 +30,12 @@ const DiscussComponent = () => {
     };
     getComment();
   }, []);
+  const deleteHandler = (commentId) => {
+    axios
+      .delete(`https://jsonplaceholder.typicode.com/comments/${commentId}`)
+      .then((res) => console.log(res))
+      .catch((error) => console.log(error));
+  };
   const selectComment = (id) => {
     console.log(id);
     setSelectedCommentId(id);
@@ -52,7 +58,10 @@ const DiscussComponent = () => {
         )}
       </section>
       <section>
-        <FullComment commentId={selectedCommentId} />
+        <FullComment
+          commentId={selectedCommentId}
+          deleteHandler={deleteHandler}
+        />
       </section>
       <section>
         <NewComment />
