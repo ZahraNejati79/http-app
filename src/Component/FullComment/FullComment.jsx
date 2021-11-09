@@ -7,7 +7,7 @@ const FullComment = ({ commentId, deleteHandler }) => {
   useEffect(() => {
     if (commentId) {
       axios
-        .get(`https://jsonplaceholder.typicode.com/comments/${commentId}`)
+        .get(`http://localhost:3001/comments/${commentId}`)
         .then((res) => setSelectComment(res.data))
         .catch((error) => console.log(error));
     }

@@ -7,7 +7,7 @@ import styles from "./DiscussComponent.module.css";
 const DiscussComponent = () => {
   const [comment, setComment] = useState(null);
   const [selectedCommentId, setSelectedCommentId] = useState(null);
-
+  const [error, setError] = useState(false);
   useEffect(() => {
     // axios
     //   .get("https://jsonplaceholder.typicode.com/users")
@@ -19,12 +19,11 @@ const DiscussComponent = () => {
     //   });
     const getComment = async () => {
       try {
-        const { data } = await axios.get(
-          "https://jsonplaceholder.typicode.com/comments"
-        );
+        const { data } = await axios.get("http://localhost:3001/comments");
+        console.log(data);
         setComment(data.slice(0, 4));
-        console.log(data.slice(0, 4));
       } catch (error) {
+        setError(true);
         console.log(error);
       }
     };
@@ -32,7 +31,7 @@ const DiscussComponent = () => {
   }, []);
   const deleteHandler = (commentId) => {
     axios
-      .delete(`https://jsonplaceholder.typicode.com/comments/${commentId}`)
+      .delete(`http://localhost:3001/comments/${commentId}`)
       .then((res) => console.log(res))
       .catch((error) => console.log(error));
   };
