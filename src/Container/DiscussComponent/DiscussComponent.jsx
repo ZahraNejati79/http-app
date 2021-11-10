@@ -21,7 +21,7 @@ const DiscussComponent = () => {
       try {
         const { data } = await axios.get("http://localhost:3001/comments");
         console.log(data);
-        setComment(data.slice(0, 4));
+        setComment(data);
       } catch (error) {
         setError(true);
         console.log(error);
@@ -32,7 +32,8 @@ const DiscussComponent = () => {
   const deleteHandler = (commentId) => {
     axios
       .delete(`http://localhost:3001/comments/${commentId}`)
-      .then((res) => console.log(res))
+      .then((res) => axios.get("http://localhost:3001/comments"))
+      .then((res) => setComment(res.data))
       .catch((error) => console.log(error));
   };
   const selectComment = (id) => {
