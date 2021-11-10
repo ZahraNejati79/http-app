@@ -29,13 +29,13 @@ const DiscussComponent = () => {
     };
     getComment();
   }, []);
-  const deleteHandler = (commentId) => {
-    axios
-      .delete(`http://localhost:3001/comments/${commentId}`)
-      .then((res) => axios.get("http://localhost:3001/comments"))
-      .then((res) => setComment(res.data))
-      .catch((error) => console.log(error));
-  };
+  // const deleteHandler = (commentId) => {
+  //   axios
+  //     .delete(`http://localhost:3001/comments/${commentId}`)
+  //     .then((res) => axios.get("http://localhost:3001/comments"))
+  //     .then((res) => setComment(res.data))
+  //     .catch((error) => console.log(error));
+  // };
   const selectComment = (id) => {
     console.log(id);
     setSelectedCommentId(id);
@@ -60,7 +60,8 @@ const DiscussComponent = () => {
       <section>
         <FullComment
           commentId={selectedCommentId}
-          deleteHandler={deleteHandler}
+          // deleteHandler={deleteHandler}
+          setComment={setComment}
         />
       </section>
       <section>
