@@ -65,7 +65,7 @@ const DiscussComponent = () => {
         />
       </section>
       <section>
-        <NewComment />
+        <NewComment setComment={setComment} />
       </section>
     </div>
   );

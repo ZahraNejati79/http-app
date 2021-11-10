@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from "react";
 import styles from "./NewComment.module.css";
-const NewComment = () => {
+const NewComment = (props) => {
   const [comment, setComment] = useState({
     name: "",
     email: "",
@@ -16,7 +16,8 @@ const NewComment = () => {
         ...comment,
         postId: 10,
       })
-      .then((res) => console.log(res))
+      .then((res) => axios.get("http://localhost:3001/comments"))
+      .then((res) => props.setComment(res.data))
       .catch();
   };
   return (
