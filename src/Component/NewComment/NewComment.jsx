@@ -10,15 +10,26 @@ const NewComment = (props) => {
   const changeHandler = (e) => {
     setComment({ ...comment, [e.target.name]: e.target.value });
   };
-  const AddCommentHandler = () => {
-    axios
-      .post("http://localhost:3001/comments", {
+  const AddCommentHandler = async () => {
+    try {
+      await axios.post("http://localhost:3001/comments", {
         ...comment,
         postId: 10,
-      })
-      .then((res) => axios.get("http://localhost:3001/comments"))
-      .then((res) => props.setComment(res.data))
-      .catch();
+      });
+      const { data } = await axios.get("http://localhost:3001/comments");
+      props.setComment(data);
+    } catch (error) {
+      console.log(error);
+    }
+
+    // axios
+    //   .post("http://localhost:3001/comments", {
+    //     ...comment,
+    //     postId: 10,
+    //   })
+    //   .then((res) => axios.get("http://localhost:3001/comments"))
+    //   .then((res) => props.setComment(res.data))
+    //   .catch();
   };
   return (
     <div className={styles.newComment}>

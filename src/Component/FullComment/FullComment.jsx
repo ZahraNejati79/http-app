@@ -12,15 +12,24 @@ const FullComment = ({ commentId, setComment }) => {
         .catch((error) => console.log(error));
     }
   }, [commentId]);
-  const deleteHandler = (id) => {
-    axios
-      .delete(`http://localhost:3001/comments/${id}`)
-      .then((res) => axios.get("http://localhost:3001/comments"))
-      .then((res) => {
-        setComment(res.data);
-        setSelectComment(null);
-      })
-      .catch((error) => console.log(error));
+  const deleteHandler = async (id) => {
+    try {
+      await axios.delete(`http://localhost:3001/comments/${id}`);
+      const { data } = await axios.get("http://localhost:3001/comments");
+      setSelectComment(null);
+      setComment(data);
+    } catch (error) {
+      console.log(error);
+    }
+
+    // axios
+    //   .delete(`http://localhost:3001/comments/${id}`)
+    //   .then((res) => axios.get("http://localhost:3001/comments"))
+    //   .then((res) => {
+    //     setComment(res.data);
+    //     setSelectComment(null);
+    //   })
+    //   .catch((error) => console.log(error));
   };
 
   let commentDetail = <p>please select a comment !</p>;
