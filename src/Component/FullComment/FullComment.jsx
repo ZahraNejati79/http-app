@@ -16,14 +16,19 @@ const FullComment = ({ commentId, setComment }) => {
     axios
       .delete(`http://localhost:3001/comments/${id}`)
       .then((res) => axios.get("http://localhost:3001/comments"))
-      .then((res) => setComment(res.data))
+      .then((res) => {
+        setComment(res.data);
+        setSelectComment(null);
+      })
       .catch((error) => console.log(error));
   };
 
   let commentDetail = <p>please select a comment !</p>;
 
   if (commentId) commentDetail = <p>loading</p>;
-
+  if (commentId && !selectCommet) {
+    commentDetail = <p>please select a comment !</p>;
+  }
   if (selectCommet) {
     commentDetail = (
       <div className={styles.fullComponent}>

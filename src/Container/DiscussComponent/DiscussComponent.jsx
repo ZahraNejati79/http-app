@@ -4,6 +4,7 @@ import CommentC from "../../Component/CommentC/CommentC";
 import FullComment from "../../Component/FullComment/FullComment";
 import NewComment from "../../Component/NewComment/NewComment";
 import styles from "./DiscussComponent.module.css";
+import { toast } from "react-toastify";
 const DiscussComponent = () => {
   const [comment, setComment] = useState(null);
   const [selectedCommentId, setSelectedCommentId] = useState(null);
@@ -46,6 +47,7 @@ const DiscussComponent = () => {
       let commentError = <p>loading</p>;
       if (error) {
         commentError = <p>fetching data failed :\</p>;
+        toast.error("fetching data failed :(");
       }
       if (comment && !error) {
         commentError = comment.map((c) => (
