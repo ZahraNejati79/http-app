@@ -41,22 +41,29 @@ const DiscussComponent = () => {
     setSelectedCommentId(id);
   };
 
+  const errorHandler = () => {
+    {
+      let commentError = <p>loading</p>;
+      if (error) {
+        commentError = <p>fetching data failed :\</p>;
+      }
+      if (comment && !error) {
+        commentError = comment.map((c) => (
+          <CommentC
+            key={c.id}
+            name={c.name}
+            email={c.email}
+            clickHandler={() => selectComment(c.id)}
+          />
+        ));
+      }
+      return commentError;
+    }
+  };
+
   return (
     <div className={styles.discussComponent}>
-      <section>
-        {comment ? (
-          comment.map((c) => (
-            <CommentC
-              key={c.id}
-              name={c.name}
-              email={c.email}
-              clickHandler={() => selectComment(c.id)}
-            />
-          ))
-        ) : (
-          <p>loading ...</p>
-        )}
-      </section>
+      <section>{errorHandler()}</section>
       <section>
         <FullComment
           commentId={selectedCommentId}
