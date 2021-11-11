@@ -1,30 +1,32 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import styles from "./FullComment.module.css";
+import http from "../../services/httpServices";
 const FullComment = ({ commentId, setComment }) => {
   const [selectCommet, setSelectComment] = useState(null);
 
   useEffect(() => {
     if (commentId) {
-      axios
-        .get(`http://localhost:3001/comments/${commentId}`)
+      http
+        .get(`/comments/${commentId}`)
         .then((res) => setSelectComment(res.data))
         .catch((error) => console.log(error));
     }
   }, [commentId]);
   const deleteHandler = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/comments/${id}`);
-      const { data } = await axios.get("http://localhost:3001/comments");
+      await http.delete(`/comments/${id}`);
+      const { data } = await http.get("/comments");
       setSelectComment(null);
       setComment(data);
     } catch (error) {
       console.log(error);
     }
 
-    // axios
-    //   .delete(`http://localhost:3001/comments/${id}`)
-    //   .then((res) => axios.get("http://localhost:3001/comments"))
+    // http
+    //   .delete(`
+    //`/comments/${id}`)
+    //   .then((res) => http.get("
+    //  /comments"))
     //   .then((res) => {
     //     setComment(res.data);
     //     setSelectComment(null);

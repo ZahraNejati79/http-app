@@ -1,5 +1,5 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
+import http from "../../services/httpServices";
 import CommentC from "../../Component/CommentC/CommentC";
 import FullComment from "../../Component/FullComment/FullComment";
 import NewComment from "../../Component/NewComment/NewComment";
@@ -10,7 +10,7 @@ const DiscussComponent = () => {
   const [selectedCommentId, setSelectedCommentId] = useState(null);
   const [error, setError] = useState(false);
   useEffect(() => {
-    // axios
+    // http
     //   .get("https://jsonplaceholder.typicode.com/users")
     //   .then((response) => {
     //     setComment(response.data.slice(0, 3));
@@ -20,7 +20,7 @@ const DiscussComponent = () => {
     //   });
     const getComment = async () => {
       try {
-        const { data } = await axios.get("http://localhost:3001/comments");
+        const { data } = await http.get("/comments");
         console.log(data);
         setComment(data);
       } catch (error) {
@@ -31,9 +31,9 @@ const DiscussComponent = () => {
     getComment();
   }, []);
   // const deleteHandler = (commentId) => {
-  //   axios
-  //     .delete(`http://localhost:3001/comments/${commentId}`)
-  //     .then((res) => axios.get("http://localhost:3001/comments"))
+  //   http
+  //     .delete(`comments/${commentId}`)
+  //     .then((res) => http.get("/comments"))
   //     .then((res) => setComment(res.data))
   //     .catch((error) => console.log(error));
   // };
@@ -47,7 +47,7 @@ const DiscussComponent = () => {
       let commentError = <p>loading</p>;
       if (error) {
         commentError = <p>fetching data failed :\</p>;
-        toast.error("fetching data failed :(");
+        toast.error("fetching data failed :/");
       }
       if (comment && !error) {
         commentError = comment.map((c) => (
