@@ -1,21 +1,24 @@
 import { useEffect, useState } from "react";
 import styles from "./FullComment.module.css";
 import http from "../../services/httpServices";
+import { getOneComment } from "../../services/getOneCommentServices";
+import { deleteComment } from "../../services/deleteCommentServices";
+import { getAllcomments } from "../../services/getAllCommentServices";
 const FullComment = ({ commentId, setComment }) => {
   const [selectCommet, setSelectComment] = useState(null);
 
   useEffect(() => {
     if (commentId) {
-      http
-        .get(`/comments/${commentId}`)
+      http;
+      getOneComment(commentId)
         .then((res) => setSelectComment(res.data))
         .catch((error) => console.log(error));
     }
   }, [commentId]);
   const deleteHandler = async (id) => {
     try {
-      await http.delete(`/comments/${id}`);
-      const { data } = await http.get("/comments");
+      await deleteComment(id);
+      const { data } = await getAllcomments();
       setSelectComment(null);
       setComment(data);
     } catch (error) {

@@ -1,6 +1,9 @@
 import { useState } from "react";
 import styles from "./NewComment.module.css";
 import http from "../../services/httpServices";
+import { getAllcomments } from "../../services/getAllCommentServices";
+import { addNewCommentService } from "../../services/addNewCommentservice";
+
 const NewComment = (props) => {
   const [comment, setComment] = useState({
     name: "",
@@ -12,11 +15,8 @@ const NewComment = (props) => {
   };
   const AddCommentHandler = async () => {
     try {
-      await http.post("/comments", {
-        ...comment,
-        postId: 10,
-      });
-      const { data } = await http.get("/comments");
+      await addNewCommentService({ ...comment, postId: 10 });
+      const { data } = await getAllcomments();
       props.setComment(data);
     } catch (error) {
       console.log(error);

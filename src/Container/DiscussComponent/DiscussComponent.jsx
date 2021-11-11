@@ -4,6 +4,7 @@ import CommentC from "../../Component/CommentC/CommentC";
 import FullComment from "../../Component/FullComment/FullComment";
 import NewComment from "../../Component/NewComment/NewComment";
 import styles from "./DiscussComponent.module.css";
+import { getAllcomments } from "../../services/getAllCommentServices";
 import { toast } from "react-toastify";
 const DiscussComponent = () => {
   const [comment, setComment] = useState(null);
@@ -20,7 +21,7 @@ const DiscussComponent = () => {
     //   });
     const getComment = async () => {
       try {
-        const { data } = await http.get("/comments");
+        const { data } = await getAllcomments();
         console.log(data);
         setComment(data);
       } catch (error) {
