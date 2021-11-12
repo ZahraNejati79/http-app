@@ -9,7 +9,6 @@ const FullComment = ({ commentId, setComment }) => {
 
   useEffect(() => {
     if (commentId) {
-      http;
       getOneComment(commentId)
         .then((res) => setSelectComment(res.data))
         .catch((error) => console.log(error));
