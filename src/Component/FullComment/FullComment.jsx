@@ -4,7 +4,8 @@ import http from "../../services/httpServices";
 import { getOneComment } from "../../services/getOneCommentServices";
 import { deleteComment } from "../../services/deleteCommentServices";
 import { getAllcomments } from "../../services/getAllCommentServices";
-const FullComment = ({ setComment, match }) => {
+const FullComment = ({ match, history }) => {
+  console.log("history", history);
   const [selectCommet, setSelectComment] = useState(null);
   const commentId = match.params.id;
   useEffect(() => {
@@ -17,9 +18,7 @@ const FullComment = ({ setComment, match }) => {
   const deleteHandler = async (id) => {
     try {
       await deleteComment(id);
-      const { data } = await getAllcomments();
-      setSelectComment(null);
-      setComment(data);
+      history.push("/");
     } catch (error) {
       console.log(error);
     }
@@ -44,11 +43,13 @@ const FullComment = ({ setComment, match }) => {
   }
   if (selectCommet) {
     commentDetail = (
-      <div className={styles.fullComponent}>
-        <p>{selectCommet.name}</p>
-        <p>{selectCommet.email}</p>
-        <p>{selectCommet.body}</p>
-        <button onClick={() => deleteHandler(selectCommet.id)}>Delete</button>
+      <div className={styles.container}>
+        <div className={styles.fullComponent}>
+          <p>{selectCommet.name}</p>
+          <p>{selectCommet.email}</p>
+          <p>{selectCommet.body}</p>
+          <button onClick={() => deleteHandler(selectCommet.id)}>Delete</button>
+        </div>
       </div>
     );
   }

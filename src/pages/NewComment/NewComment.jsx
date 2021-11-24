@@ -4,7 +4,7 @@ import http from "../../services/httpServices";
 import { getAllcomments } from "../../services/getAllCommentServices";
 import { addNewCommentService } from "../../services/addNewCommentservice";
 
-const NewComment = (props) => {
+const NewComment = ({ history }) => {
   const [comment, setComment] = useState({
     name: "",
     email: "",
@@ -16,8 +16,7 @@ const NewComment = (props) => {
   const AddCommentHandler = async () => {
     try {
       await addNewCommentService({ ...comment, postId: 10 });
-      const { data } = await getAllcomments();
-      props.setComment(data);
+      history.push("/");
     } catch (error) {
       console.log(error);
     }

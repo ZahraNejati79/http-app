@@ -7,7 +7,7 @@ import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
 const DiscussComponent = () => {
   const [comment, setComment] = useState(null);
-  const [selectedCommentId, setSelectedCommentId] = useState(null);
+
   const [error, setError] = useState(false);
   useEffect(() => {
     // http
@@ -36,9 +36,6 @@ const DiscussComponent = () => {
   //     .then((res) => setComment(res.data))
   //     .catch((error) => console.log(error));
   // };
-  const selectComment = (id) => {
-    setSelectedCommentId(id);
-  };
 
   const errorHandler = () => {
     {
@@ -50,11 +47,7 @@ const DiscussComponent = () => {
       if (comment && !error) {
         commentError = comment.map((c) => (
           <Link to={`/comment/${c.id}`} key={c.id}>
-            <CommentC
-              name={c.name}
-              email={c.email}
-              clickHandler={() => selectComment(c.id)}
-            />
+            <CommentC name={c.name} email={c.email} />
           </Link>
         ));
       }
@@ -65,7 +58,7 @@ const DiscussComponent = () => {
 
   return (
     <div className={styles.discussComponent}>
-      <section>{errorHandler()}</section>
+      <section className={styles.container}>{errorHandler()}</section>
       {/* <section>
         <FullComment
           commentId={selectedCommentId}
