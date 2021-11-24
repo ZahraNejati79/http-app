@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 import http from "../../services/httpServices";
 import CommentC from "../../Component/CommentC/CommentC";
-import FullComment from "../../Component/FullComment/FullComment";
-import NewComment from "../../Component/NewComment/NewComment";
 import styles from "./DiscussComponent.module.css";
 import { getAllcomments } from "../../services/getAllCommentServices";
 import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 const DiscussComponent = () => {
   const [comment, setComment] = useState(null);
   const [selectedCommentId, setSelectedCommentId] = useState(null);
@@ -22,7 +21,6 @@ const DiscussComponent = () => {
     const getComment = async () => {
       try {
         const { data } = await getAllcomments();
-        console.log(data);
         setComment(data);
       } catch (error) {
         setError(true);
@@ -39,7 +37,6 @@ const DiscussComponent = () => {
   //     .catch((error) => console.log(error));
   // };
   const selectComment = (id) => {
-    console.log(id);
     setSelectedCommentId(id);
   };
 
@@ -52,14 +49,16 @@ const DiscussComponent = () => {
       }
       if (comment && !error) {
         commentError = comment.map((c) => (
-          <CommentC
-            key={c.id}
-            name={c.name}
-            email={c.email}
-            clickHandler={() => selectComment(c.id)}
-          />
+          <Link to={`/comment/${c.id}`} key={c.id}>
+            <CommentC
+              name={c.name}
+              email={c.email}
+              clickHandler={() => selectComment(c.id)}
+            />
+          </Link>
         ));
       }
+
       return commentError;
     }
   };
@@ -67,7 +66,7 @@ const DiscussComponent = () => {
   return (
     <div className={styles.discussComponent}>
       <section>{errorHandler()}</section>
-      <section>
+      {/* <section>
         <FullComment
           commentId={selectedCommentId}
           // deleteHandler={deleteHandler}
@@ -76,7 +75,7 @@ const DiscussComponent = () => {
       </section>
       <section>
         <NewComment setComment={setComment} />
-      </section>
+      </section> */}
     </div>
   );
 };

@@ -8,11 +8,12 @@ import routes from "./routes";
 function App() {
   return (
     <div className="App">
+      <ToastContainer />
       <Layout>
         <Switch>
-          <Route {...routes} />
-          <ToastContainer />
-          <DiscussComponent />
+          {routes.map((route) => (
+            <Route {...route} />
+          ))}
         </Switch>
       </Layout>
     </div>

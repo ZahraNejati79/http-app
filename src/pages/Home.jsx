@@ -1,7 +1,8 @@
+import DiscussComponent from "../Container/DiscussComponent/DiscussComponent";
 const Home = () => {
   return (
     <>
-      <p>Home</p>
+      <DiscussComponent />
     </>
   );
 };
